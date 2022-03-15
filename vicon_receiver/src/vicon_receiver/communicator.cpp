@@ -98,7 +98,7 @@ void Communicator::get_frame()
                 vicon_client.GetSegmentGlobalTranslation(subject_name, segment_name);
             Output_GetSegmentGlobalRotationQuaternion rot =
                 vicon_client.GetSegmentGlobalRotationQuaternion(subject_name, segment_name);
-            
+
             for (size_t i = 0; i < 4; i++)
             {
                 if (i < 3)
@@ -144,7 +144,8 @@ void Communicator::create_publisher(const string subject_name, const string segm
 
 void Communicator::create_publisher_thread(const string subject_name, const string segment_name)
 {
-    std::string topic_name = ns_name + "/" + subject_name + "/" + segment_name;
+    // std::string topic_name = ns_name + "/" + subject_name + "/" + segment_name;
+    std::string topic_name = segment_name + "/pose" ;
     std::string key = subject_name + "/" + segment_name;
 
     string msg = "Creating publisher for segment " + segment_name + " from subject " + subject_name;
