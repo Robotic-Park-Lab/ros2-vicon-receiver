@@ -1,13 +1,7 @@
-import logging
-import time
 import rclpy
-from threading import Timer
-import numpy as np
-import math
 
 from rclpy.node import Node
-from std_msgs.msg import String, UInt16, UInt16MultiArray, Float64, Float64MultiArray
-from geometry_msgs.msg import Pose, Twist, PoseWithCovariance
+from geometry_msgs.msg import Pose, PoseWithCovariance
 from nav_msgs.msg import Odometry
 
 agent_list = list()
@@ -26,19 +20,12 @@ class Agent():
         self.pose = msg_aux.pose
         self.publisher_.publish(msg_aux.pose)
 
-class ViconGazebo(Node):
 
+class ViconGazebo(Node):
     def __init__(self):
         super().__init__('vicon_gazebo')
-        self.declare_parameter('agents', 'khepera01')
+        self.declare_parameter('agents', 'robot01')
         self.initialize()
-
-        self.subscription = self.create_subscription(
-            String,
-            'topic',
-            self.listener_callback,
-            10)
-        self.subscription  # prevent unused variable warning
 
     def initialize(self):
         self.get_logger().info('Vicon Gazebo::inicialize() ok.')
@@ -48,9 +35,6 @@ class ViconGazebo(Node):
             agent_str = id_array[i-1]
             robot = Agent(self, agent_str)
             agent_list.append(robot)
-
-    def listener_callback(self, msg):
-        self.get_logger().info('I heard: "%s"' % msg.data)
 
 
 def main(args=None):
