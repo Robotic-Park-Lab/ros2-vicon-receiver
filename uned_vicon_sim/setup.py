@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'vicon_gazebo = uned_vicon_sim.vicon_gazebo:main'
+            'vicon_gazebo = uned_vicon_sim.vicon_gazebo:main',
+            'vicon_webots = uned_vicon_sim.vicon_webots:main'
         ],
     },
 )
