@@ -20,23 +20,24 @@ class Agent():
         self.pose.position.z = msg.point.z
         self.publisher_.publish(self.pose)
 
-        t = TransformStamped()
-        # Read message content and assign it to
-        # corresponding tf variables
-        t.header.stamp = self.parent.get_clock().now().to_msg()
-        t.header.frame_id = 'world'
-        t.child_frame_id = self.id
-        t.transform.translation.x = msg.point.x
-        t.transform.translation.y = msg.point.y
-        t.transform.translation.z = msg.point.z
+        if self.id == 'turtlebot01':
+            t = TransformStamped()
+            # Read message content and assign it to
+            # corresponding tf variables
+            t.header.stamp = self.parent.get_clock().now().to_msg()
+            t.header.frame_id = 'map'
+            t.child_frame_id = self.id
+            t.transform.translation.x = msg.point.x
+            t.transform.translation.y = msg.point.y
+            t.transform.translation.z = msg.point.z
 
-        q = tf_transformations.quaternion_from_euler(0, 0, 0)
-        t.transform.rotation.x = q[0]
-        t.transform.rotation.y = q[1]
-        t.transform.rotation.z = q[2]
-        t.transform.rotation.w = q[3]
+            q = tf_transformations.quaternion_from_euler(0, 0, 0)
+            t.transform.rotation.x = q[0]
+            t.transform.rotation.y = q[1]
+            t.transform.rotation.z = q[2]
+            t.transform.rotation.w = q[3]
 
-        self.parent.br.sendTransform(t)
+            self.parent.br.sendTransform(t)
 
 class ViconWebots(Node):
 
