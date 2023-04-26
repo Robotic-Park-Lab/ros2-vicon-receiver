@@ -43,7 +43,7 @@ find_package("${rmw_implementation}" REQUIRED)
 get_rmw_typesupport(typesupport_impls "${rmw_implementation}" LANGUAGE "cpp")
 
 foreach(typesupport_impl ${typesupport_impls})
-  rosidl_target_interfaces(vicon_client
+  rosidl_get_typesupport_target(vicon_client
     ${PROJECT_NAME} ${typesupport_impl}
   )
 endforeach()
@@ -53,6 +53,7 @@ install(TARGETS vicon_client DESTINATION lib/${PROJECT_NAME})
 # Install launch file
 install(DIRECTORY
   launch
+  msg
   DESTINATION share/${PROJECT_NAME}/
 )
 
